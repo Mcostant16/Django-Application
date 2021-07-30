@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+{% block page_content %}
+<html lang="en"> 
+<head> 
+    <meta charset="UTF-8"> 
+    <title>Images</title> 
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
+<style>
+#deleteButton {
+float: right;
+}
+</style>
+
+</head> 
+<body> 
+<div class="container">
+	<div class="row">
+    {% for image in images %} 
+            <div class="col-sm-3"> 
+                <a href="{{ image.image.url }}" target="_blank">
+				    <img src="{{ image.image.url }}"  class="img-responsive" style="width: 100%; height:150; float: left; margin-right: 10px;" /> 
+				</a>
+					<form method="post" action="{% url 'myProfile:delete_photo' image.pk %}">
+						 {% csrf_token %}
+						<button type="reset" class="btn btn-info btn-sm" data-toggle="collapse" data-target="#demo{{image.pk}}" aria-expanded="false" >+</button>	
+							<button id="deleteButton" type="submit" class="btn btn-danger btn-sm" data-toggle="tooltip" title="Delete Photo">
+								<i class="fas fa-trash"></i>
+							</button>
+								<div id="demo{{image.pk}}" class="collapse" contenteditable="true"> {{ image.title }}  {{ image.pk}} </div>
+									
+					</form>
+			</div> 
+    {% endfor %} 
+	</div>  
+</div>  
+</body> 
+</html> 
+{% endblock %}

@@ -1,0 +1,22 @@
+<!-- Block of Code shows Toast Message uses Jquery to add class that colors the box based off type of message-->
+{%if messages %}
+	{% for message in messages %}
+       <div class="container mt-3">
+			<div class="toast mt-3 align-items-center text-white border-0" role="alert" aria-live="polite" aria-atomic="true" data-delay="2000" style="position: absolute; top: 35; right: 0;">
+			    <div id="toastMessageColor">
+					<div class="toast-body">{{message}} </div>
+				</div>
+			</div>
+		</div>
+	{% if message.tags == 'success'%}
+		<script> $("#toastMessageColor").addClass("bg-success");</script>
+		{% elif message.tags == 'info'%}
+            <script> $("#toastMessageColor").addClass("bg-info");</script>
+        {% elif message.tags == 'warning'%}
+            <script> $("#toastMessageColor").addClass("bg-warning");</script>
+        {% elif message.tags == 'error'%}
+            <script> $("#toastMessageColor").addClass("bg-danger");</script>
+        {% endif %}
+	<script>$('.toast').toast('show');</script>
+	{% endfor %}
+{% endif %}

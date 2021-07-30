@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+{% block page_content %}
+<html lang="en">
+	<head>
+		<title>Tasks</title>
+	</head>
+	<body>
+		<H2> Add Tasks </H2>
+		<form action ="{% url 'tasks:add' %}" method="post">
+			{% csrf_token %}
+			{{form|crispy}}
+		    <input type ="submit">
+		</form>
+		<a href="{% url 'tasks:index' %}"> View Tasks </a>
+	</body>
+</html>
+{% endblock %}

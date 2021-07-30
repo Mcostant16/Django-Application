@@ -1,0 +1,27 @@
+{% if user.is_authenticated %}
+	<li class="nav-item active">
+        <a class="nav-link" href="{% url 'project_index' %}">Home</a>
+			</li>
+	<li class="nav-item">
+        <a class="nav-link" href="{% url 'blog_index' %}">Blog</a>
+			</li>
+	<li class="nav-item">
+        <a class="nav-link" href="/tasks">Tasks</a>
+			</li>
+	<li class="nav-item">
+        <a class="nav-link" href="/tasks/add">Add Task</a>
+			</li>
+	<li class="nav-item">
+        <a class="nav-link" href="/myProfile">{{user.username|title}}</a>
+			</li>
+	<li class="nav-item">
+        <a class="nav-link" href="/logout">Logout</a>
+			</li>
+{% else %}
+	<li class="nav-item">
+        <a class="nav-link" href="/login">Login</a>
+			</li>
+	<li class="nav-item">
+        <a class="nav-link" href="{% url 'register' %}">Register</a>
+            </li>
+{% endif %}  

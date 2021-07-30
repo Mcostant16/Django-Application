@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+<!DOCTYPE html>
+{% block page_content %}
+<head>
+<style>
+.card {
+
+   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5),
+               0 6px 20px 0 rgba(0,0,0,0.39);
+   background: lightyellow;
+   margin-bottom : 5%;
+   border-radius: 25px;
+   padding : 2%;
+   overflow: auto;
+   resize: both;
+   text-overflow: ellipsis;
+ }
+.card:hover{
+    background: lightblue;
+ }
+
+.submit_form{
+
+    text-align: center;
+    padding: 3%;
+    background: pink;
+    border-radius: 25px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.4),
+                0 6px 20px 0 rgba(0,0,0,0.36);
+ }
+
+.noTasks {
+  border: 5px outset red;
+  background-color: lightyellow;
+  text-align: center;
+}
+</style>
+<script> 
+	window.onscroll = () => {
+		if (window.innerHeight + window.scrolly >= document.body.offsetHeight)  {
+			document.querySelector('body').style.background ='green';
+		}  else {
+			document.querySelector('body').style.background = 'lightgreen'; 
+		}	
+	} 
+</script>
+<head>
+<html lang="en">
+	<head>
+		<title>Tasks</title>
+	</head>
+	<body>
+	{% if tasks  %}
+		<ul>
+		{% for task in tasks %}
+	    <div class="card">
+			 <center><b>{{ task.task_name }}</b></center>
+			  <hr/>
+				{{ task.date_created}}
+				<hr/>
+					{{ task.priority }} 
+					<hr/>
+					{{ task.user}} 
+					<br />
+				  <br />
+          <form action="{% url 'tasks:del' task.pk %}" method="POST" style=" padding-right: 4%; padding-bottom: 3%;">
+             {% csrf_token %}
+             <button value="remove" type="submit"  class="btn btn-primary" style="float: right;"><span class="glyphicon glyphicon-trash"></span> &nbsp; remove</button>
+          </form>
+		</div>
+		{% endfor %}
+		</ul>
+	{% else %}
+		<div class="noTasks"> <h2>You have no tasks. Please add a tasks!</h2></div>
+	{% endif %}
+		<br />
+		  <br />
+		   <a href="{% url 'tasks:add' %}"> Add a New Tasks</a>
+	</body>
+</html>
+{% endblock %}
